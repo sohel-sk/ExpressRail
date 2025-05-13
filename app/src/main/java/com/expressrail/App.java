@@ -4,7 +4,6 @@
 package com.expressrail;
 
 public class App {
-
     public static void main(String[] args) {
     }
 }
