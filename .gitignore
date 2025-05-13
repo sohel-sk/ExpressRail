@@ -1,0 +1,35 @@
+# Gradle files
+.gradle/
+build/
+**/build/
+gradle-app.setting
+!gradle-wrapper.jar
+
+# Cache directories
+.idea/
+.settings/
+*.iml
+*.ipr
+*.iws
+
+# Executables and archives
+*.apk
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.7z
+
+# Log files
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Gradle wrapper
+gradle/wrapper/gradle-wrapper.properties
+
+#Local configuration property file
+local.properties
