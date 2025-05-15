@@ -32,7 +32,18 @@ public class UserBookingService {
     }
 
     public boolean signUp(User tmpUser){
-        userList.add(tmpUser);
-        return Boolean.TRUE;
+        try{
+            userList.add(tmpUser);
+            saveUserListToFile();
+            return Boolean.TRUE;
+        }catch (IOException e){
+            return  Boolean.FALSE;
+        }
+    }
+
+
+    private void saveUserListToFile() throws IOException{
+        File usersFile = new File(USERS_PATH);
+        objectMapper.writeValue(usersFile, userList);
     }
 }
