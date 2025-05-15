@@ -1,6 +1,7 @@
 package com.expressrail.services;
 
 import com.expressrail.entities.User;
+import com.expressrail.util.UserServiceUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -24,10 +25,14 @@ public class UserBookingService {
     }
 
     public boolean loginUser(){
-        return true;
+        Optional<User> foundUser = userList.stream().filter( user1 -> {
+            return user1.getName().equals(user.getName()) && UserServiceUtil.checkPassword(user.getPassword(), user1.getHashedPassword());
+        }).findFirst();
+        return foundUser.isPresent();
     }
 
     public boolean signUp(User tmpUser){
-        return true;
+        userList.add(tmpUser);
+        return Boolean.TRUE;
     }
 }
