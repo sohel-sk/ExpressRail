@@ -1,5 +1,6 @@
 package com.expressrail.services;
 
+import com.expressrail.entities.Ticket;
 import com.expressrail.entities.User;
 import com.expressrail.util.UserServiceUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -46,4 +47,18 @@ public class UserBookingService {
         File usersFile = new File(USERS_PATH);
         objectMapper.writeValue(usersFile, userList);
     }
+    public void fetchBooking(){
+        user.printTickets();
+    }
+
+    public Boolean cancelBooking(String ticketID){
+        List<Ticket> TicketsBooked = user.getTicketsBooked();
+        Optional<Ticket> foundTicket = TicketsBooked.stream().filter(ticket -> {
+            return ticket.getTicketId().equals(ticketID);
+        }).findFirst();
+        foundTicket.ifPresent(TicketsBooked::remove);
+        user.setTicketsBooked(TicketsBooked);
+        return Boolean.FALSE;
+    }
+
 }
