@@ -20,9 +20,16 @@ public class UserBookingService {
 
     public UserBookingService(User user) throws IOException {
         this.user = user;
-        File users = new File(USERS_PATH);
-        userList = objectMapper.readValue(users, new TypeReference<List<User>>() {});
+        userList = loadUsers();
+    }
 
+    public UserBookingService() throws IOException{
+        userList = loadUsers();
+    }
+
+    public List<User> loadUsers() throws IOException{
+        File users = new File(USERS_PATH);
+        return objectMapper.readValue(users, new TypeReference<List<User>>() {});
     }
 
     public boolean loginUser(){
@@ -58,7 +65,7 @@ public class UserBookingService {
         }).findFirst();
         foundTicket.ifPresent(TicketsBooked::remove);
         user.setTicketsBooked(TicketsBooked);
-        return Boolean.FALSE;
+        return Boolean.TRUE;
     }
 
 }

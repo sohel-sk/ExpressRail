@@ -3,7 +3,54 @@
  */
 package com.expressrail;
 
+import com.expressrail.entities.User;
+import com.expressrail.services.UserBookingService;
+import com.expressrail.util.UserServiceUtil;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.UUID;
+
 public class App {
     public static void main(String[] args) {
+        System.out.println("Running Train Booking System.");
+        Scanner scanner = new Scanner(System.in);
+
+        int option = 0;
+        UserBookingService userBookingService ;
+        try{
+            userBookingService = new UserBookingService();
+
+        } catch (IOException e) {
+            System.out.println("Problem in Fetching Users.");
+            throw new RuntimeException(e);
+        }
+
+        while(option != 7){
+            System.out.println("Choose option :-");
+            System.out.println("1. Sign Up");
+            System.out.println("2. Log In");
+            System.out.println("3. Fetch Bookings");
+            System.out.println("4. Search Trains");
+            System.out.println("5. Book a Seat");
+            System.out.println("6. Cancel the Booking");
+            System.out.println("7. Exit the App");
+            option = scanner.nextInt();
+            switch (option){
+                case 1:{
+                    System.out.println("Enter the username to sign up");
+                    String nameToSignUp = scanner.next();
+                    System.out.println("Enter the Password to Sign Up");
+                    String passwordToSignUp =scanner.next();
+                    User userToSignUp = new User(nameToSignUp, passwordToSignUp, UserServiceUtil.hashPasssword(passwordToSignUp), new ArrayList<>(), UUID.randomUUID().toString());
+                    userBookingService.signUp(userToSignUp);
+                    break;
+                }
+                case 2:{
+
+                }
+            }
+        }
     }
 }
