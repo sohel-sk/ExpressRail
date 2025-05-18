@@ -63,8 +63,9 @@ public class User {
     }
 
     public void printTickets(){
+        int i=1;
         for(Ticket ticket : ticketsBooked){
-            System.out.println(ticket.getTicketInfo());
+            System.out.println( i++ +" : "+ticket.getTicketInfo());
         }
     }
 

@@ -18,6 +18,7 @@ public class Train {
         this.stations=stations;
         this.stationTimes=stationTimes;
     }
+    public Train(){};
 
     public String getTrainId() {
         return trainId;
