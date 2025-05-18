@@ -14,7 +14,7 @@ import java.util.stream.IntStream;
 public class TrainService {
     List<Train> trainList;
     ObjectMapper objectMapper =  new ObjectMapper();
-    private static final String TRAIN_DB_PATH = "../localDB/trains.json";
+    private static final String TRAIN_DB_PATH = "app/src/main/java/com/expressrail/localDb/trains.json";
 
     public TrainService() throws Exception{
         File trains = new File(TRAIN_DB_PATH);
@@ -22,7 +22,7 @@ public class TrainService {
     }
 
     public List<Train> searchTrains(String source, String destination){
-        return trainList.stream().filter(train -> validTrain(train, source, destination)).collect(Collectors.toList());
+        return trainList.stream().filter(train -> validTrain(train, source, destination)).collect(Collectors.toUnmodifiableList());
     }
 
     public Boolean validTrain(Train train, String source, String destination){

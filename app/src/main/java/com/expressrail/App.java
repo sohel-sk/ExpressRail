@@ -21,6 +21,7 @@ public class App {
         try {
             userBookingService = new UserBookingService();
         }catch (IOException ex){
+            System.out.println("IOexception occured: "+ex.getMessage());
             return;
         }
 

@@ -1,6 +1,13 @@
 package com.expressrail.entities;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
+import java.util.*;
+
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonIgnoreProperties(ignoreUnknown = true)
 
 public class Ticket {
     private String ticketId;
@@ -18,6 +25,7 @@ public class Ticket {
         this.dateOfTravel = dateOfTravel;
         this.train = train;
     }
+    public Ticket(){}
 
     public String getTicketId() {
         return ticketId;
