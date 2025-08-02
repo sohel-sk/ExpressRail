@@ -12,23 +12,24 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class TrainService {
-    List<Train> trainList;
+    private List<Train> trainList;
     ObjectMapper objectMapper =  new ObjectMapper();
     private static final String TRAIN_DB_PATH = "app/src/main/java/com/expressrail/localDb/trains.json";
 
     public TrainService() throws Exception{
-        File trains = new File(TRAIN_DB_PATH);
-        trainList = objectMapper.readValue(trains, new TypeReference<List<Train>>() {});
+        trainList = objectMapper.readValue(new File(TRAIN_DB_PATH), new TypeReference<List<Train>>() {});
     }
 
     public List<Train> searchTrains(String source, String destination){
-        return trainList.stream().filter(train -> validTrain(train, source, destination)).collect(Collectors.toUnmodifiableList());
+        List<Train> tmp = trainList.stream().filter(train -> validTrain(train, source, destination)).toList();
+        System.out.println(tmp);
+        return tmp;
     }
 
     public Boolean validTrain(Train train, String source, String destination){
         List<String> stationOrders = train.getStations();
-        int sourceIndex = stationOrders.indexOf(source.toLowerCase());
-        int destinationIndex = stationOrders.indexOf(destination.toLowerCase());
+        int sourceIndex = stationOrders.indexOf(source);
+        int destinationIndex = stationOrders.indexOf(destination);
         return (sourceIndex != -1) && (destinationIndex != -1) && (sourceIndex < destinationIndex);
     }
 

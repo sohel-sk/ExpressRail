@@ -73,14 +73,15 @@ public class UserBookingService {
         try{
             TrainService trainService = new TrainService();
             return trainService.searchTrains(source, destination);
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     public List<List<Integer>> fetchSeats(Train train){
-        return train.getSeats();
+       List<List<Integer>> seat= train.getSeats();
+        System.out.println(seat);
+        return seat;
     }
 
     public Boolean bookTrainSeat(Train train, int row, int seat ){

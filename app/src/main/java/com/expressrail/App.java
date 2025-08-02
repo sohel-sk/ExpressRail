@@ -74,34 +74,38 @@ public class App {
                     List<Train> trains = userBookingService.getTrains(source, destination);
                     int index = 1;
                     for (Train t : trains){
-                        System.out.println(index+" Train id : "+t.getTrainId());
+                        System.out.println(index++ +" Train id : "+t.getTrainId());
                         for (Map.Entry<String, String> entry : t.getStationTimes().entrySet()){
                             System.out.println("station "+entry.getKey()+" time : "+entry.getValue());
                         }
                     }
                     System.out.println("Enter the index of the train to select the train : " );
-                    trainSelectedForBooking = trains.get(scanner.nextInt());
+                    trainSelectedForBooking = trains.get(scanner.nextInt()-1);
 
                     break;
                 }
                 case 5:{
                     System.out.println("Select a seat uot of these seats :");
-                    List<List<Integer>> seats = userBookingService.fetchSeats(trainSelectedForBooking);
-                    for(List<Integer> row:seats){
-                        for(Integer val : row){
-                            System.out.print(val+" ");
+                    if(trainSelectedForBooking == null){
+                        System.out.println("Please select a train from the train search option!");
+                    }else {
+                        List<List<Integer>> seats = userBookingService.fetchSeats(trainSelectedForBooking);
+                        for (List<Integer> row : seats) {
+                            for (Integer val : row) {
+                                System.out.print(val + " ");
+                            }
+                            System.out.println();
                         }
-                        System.out.println();
+                        System.out.println("Enter the row and Column for the selected seat :");
+                        System.out.println("Row : ");
+                        int row = scanner.nextInt();
+                        System.out.println("Column : ");
+                        int col = scanner.nextInt();
+                        System.out.println("Booking your seat ....");
+                        Boolean booked = userBookingService.bookTrainSeat(trainSelectedForBooking, row, col);
+                        if (booked.equals(Boolean.TRUE)) System.out.println("Seat Booked! Enjoy your Journey");
+                        else System.out.println("can't boook this seat");
                     }
-                    System.out.println("Enter the row and Column for the selected seat :");
-                    System.out.println("Row : ");
-                    int row = scanner.nextInt();
-                    System.out.println("Column : ");
-                    int col = scanner.nextInt();
-                    System.out.println("Booking your seat ....");
-                    Boolean booked = userBookingService.bookTrainSeat(trainSelectedForBooking, row, col);
-                    if(booked.equals(Boolean.TRUE)) System.out.println("Seat Booked! Enjoy your Journey");
-                    else System.out.println("can't boook this seat");
                     break;
                 }
                 case 6:{
